@@ -32,36 +32,38 @@ export default function DashboardPage() {
             </span>
           </h1>
 
-          <span className="text-sm text-foreground">Food Goals Made Easy.</span>
+          <span className="text-sm text-foreground ">
+            Food Goals Made Easy.
+          </span>
         </div>
       </div>
 
-      <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl">
+      <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl mt-30 lg:mt-15 md:mt-15 sm:mt-30">
         <div
           className="rounded-2xl bg-card p-10 sm:p-10 text-center
             w-full h-auto                      /* mobile: full width, auto height */
-            sm:w-[600px] sm:h-[450px]          /* small screens (≥640px) */
+            sm:w-[600px] sm:h-[700px]          /* small screens (≥640px) */
             md:w-[800px] md:h-[470px]          /* medium screens (≥768px) */
             lg:w-[800px] lg:h-[500px]          /* large screens (≥1024px) */
             xl:w-5xl xl:h-[500px]              /* extra large screens (≥1280px) */"
         >
-          <div className="w-full md:w-1/2 flex justify-center">
+          <div>
+            <h2 className="text-4xl font-bold">Nutrition Counter</h2>
+            <p className="text-sm text-foreground mb-10 mt-2">
+              Your nutrition on your finger tips.
+            </p>
+          </div>
+          <div className="w-full gap-15 flex flex-col md:flex-row items-center justify-center">
             <Image
-              src="/food.png"
+              src="/assets/images/plate 4.png"
               alt="Healthy meal"
               width={280}
               height={280}
-              className="rounded-full"
+              className="rounded-full sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px]"
             />
-          </div>
-
-          {/* Right form */}
-          <div className="w-full md:w-1/2">
-            <h2 className="text-2xl font-bold">Nutrition Count</h2>
-            <p className="text-sm text-muted-foreground mb-6">
-              Your nutrition on your finger tips.
-            </p>
-            <MealForm onSubmit={handleMealSubmit} />
+            <div className="w-full md:w-1/2 mt-6 md:mt-0">
+              <MealForm onSubmit={handleMealSubmit} />
+            </div>
           </div>
         </div>
       </div>

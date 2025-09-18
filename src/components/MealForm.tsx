@@ -22,21 +22,25 @@ export function MealForm({ onSubmit }: MealFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full">
       <div>
-        <Label htmlFor="dish">Name of the dish</Label>
+        <Label htmlFor="dish" className="mb-2">
+          Name of the dish
+        </Label>
         <div className="p-[1px] rounded-md bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C]">
           <Input
             id="dish"
             placeholder="Enter the name of the dish"
             value={dish}
             onChange={(e) => setDish(e.target.value)}
-            className="rounded-md bg-transparent w-full px-3 py-2 text-foreground placeholder:text-gray-400 focus:outline-none"
+            className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
             required
           />
         </div>
       </div>
 
       <div>
-        <Label htmlFor="servings">Servings</Label>
+        <Label htmlFor="servings" className="mb-2">
+          Servings
+        </Label>
         <div className="p-[1px] rounded-md bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C]">
           <Input
             id="servings"
@@ -46,7 +50,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
             onChange={(e) =>
               setServings(e.target.value ? Number(e.target.value) : "")
             }
-            className="rounded-md bg-transparent w-full px-3 py-2 text-foreground placeholder:text-gray-400 focus:outline-none"
+            className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
             required
           />
         </div>
@@ -54,7 +58,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
 
       <Button
         type="submit"
-        className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-bold w-full mt-4"
+        className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-bold w-full mt-4 py-5"
       >
         Check Nutrition Value
       </Button>
