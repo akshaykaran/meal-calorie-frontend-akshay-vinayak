@@ -15,7 +15,15 @@ export default function HomePage() {
       </div>
 
       <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl">
-        <div className="rounded-2xl bg-card p-10 w-5xl h-[500px] text-center">
+        <div
+          className="rounded-2xl bg-card p-10 sm:p-10 text-center
+        w-full h-auto                      /* mobile: full width, auto height */
+        sm:w-[600px] sm:h-[450px]          /* small screens (≥640px) */
+        md:w-[800px] md:h-[470px]          /* medium screens (≥768px) */
+        lg:w-[800px] lg:h-[500px]          /* large screens (≥1024px) */
+        xl:w-5xl xl:h-[500px]              /* extra large screens (≥1280px) */
+        "
+        >
           <Image
             src="/assets/images/apple.png"
             alt="NutriCount logo"
@@ -24,8 +32,8 @@ export default function HomePage() {
             className="mx-auto mb-4"
           />
 
-          <h1 className="text-6xl font-bold">
-            <span className="text-6xl font-bold bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold ">
+            <span className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
               NutriCount
             </span>
           </h1>
@@ -36,16 +44,16 @@ export default function HomePage() {
             Accuracy you can rely on. Evidence-based, USDA powered.
           </p>
 
-          <div className="mt-6 flex justify-center gap-4">
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/register">
-              <Button className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-semibold px-10 py-5 cursor-pointer">
+              <Button className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-semibold px-10 py-5 sm:px-8 sm:py-4 md:px-10 md:py-5 cursor-pointer">
                 Get Started ⟶
               </Button>
             </Link>
             <Link href="/login">
               <Button
                 variant="outline"
-                className="border-[#FF9F1C] text-black dark:text-white hover:bg-[#FF9F1C]/10 px-10 py-5 cursor-pointer"
+                className="border-[#FF9F1C] text-black dark:text-white hover:bg-[#FF9F1C]/10 px-17 py-5 sm:px-8 sm:py-4 md:px-10 md:py-5 cursor-pointer"
               >
                 Sign In
               </Button>
