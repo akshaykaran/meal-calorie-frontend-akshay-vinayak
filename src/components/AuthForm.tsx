@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface AuthFormProps {
   mode: "login" | "register";
@@ -22,6 +23,7 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,10 +35,10 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
       <div
         className="rounded-2xl bg-card p-8 sm:p-8 text-center
         w-full h-auto                      /* mobile: full width, auto height */
-        sm:w-[600px] sm:h-[500px]          /* small screens (≥640px) */
-        md:w-[600px] md:h-[500px]          /* medium screens (≥768px) */
-        lg:w-[600px] lg:h-[500px]          /* large screens (≥1024px) */
-        xl:w-2xl xl:h-[500px]              /* extra large screens (≥1280px) */
+        sm:w-[600px] sm:h-[550px]          /* small screens (≥640px) */
+        md:w-[600px] md:h-[550px]          /* medium screens (≥768px) */
+        lg:w-[600px] lg:h-[550px]          /* large screens (≥1024px) */
+        xl:w-2xl xl:h-[550px]              /* extra large screens (≥1280px) */
         "
       >
         <form
@@ -134,6 +136,22 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
           >
             {mode === "register" ? "Create Account" : "Sign In"}
           </Button>
+
+          <span className="text-sm">
+            {mode === "register" ? (
+              <p>
+                Already a user?{" "}
+                <span
+                  className="cursor-pointer"
+                  onClick={() => router.push("/login")}
+                >
+                  <b>Sign In</b>
+                </span>
+              </p>
+            ) : (
+              ""
+            )}
+          </span>
         </form>
       </div>
     </div>

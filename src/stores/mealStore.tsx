@@ -5,11 +5,11 @@ interface NutritionResult {
   calories_per_serving: number;
   servings: number;
   dailyIntake: string;
-  dish: string;
+  dish_name: string;
 }
 
 interface MealState {
-  dish: string;
+  dish_name: string;
   servings: number;
   result: NutritionResult | null;
   setMeal: (dish: string, servings: number) => void;
@@ -18,10 +18,10 @@ interface MealState {
 }
 
 export const useMealStore = create<MealState>((set) => ({
-  dish: "",
+  dish_name: "",
   servings: 0,
   result: null,
-  setMeal: (dish, servings) => set({ dish, servings }),
+  setMeal: (dish_name, servings) => set({ dish_name, servings }),
   setResult: (result) => set({ result }),
-  clearMeal: () => set({ dish: "", servings: 0, result: null }),
+  clearMeal: () => set({ dish_name: "", servings: 0, result: null }),
 }));

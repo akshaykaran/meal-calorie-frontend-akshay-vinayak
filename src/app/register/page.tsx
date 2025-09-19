@@ -59,7 +59,12 @@ export default function RegisterPage() {
         </div>
         {/* </div> */}
       </div>
-      <div className="absolute top-35 left-20">⟵ Back</div>
+      <div
+        className="absolute top-35 left-20 cursor-pointer"
+        onClick={() => router.push("/")}
+      >
+        ⟵ Back
+      </div>
 
       <AuthForm mode="register" onSubmit={handleRegister} />
     </main>

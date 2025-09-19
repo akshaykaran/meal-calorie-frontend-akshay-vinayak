@@ -18,6 +18,15 @@ export function MealForm({ onSubmit }: MealFormProps) {
     onSubmit({ dish, servings: Number(servings) });
   }
 
+  function handleServings(e: React.ChangeEvent<HTMLInputElement>) {
+    let value = Number(e.target.value);
+
+    if (value < 1) value = 1;
+    if (value > 1000) value = 1000;
+
+    setServings(value);
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full">
       <div>
@@ -32,6 +41,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
             onChange={(e) => setDish(e.target.value)}
             className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
             required
+            maxLength={50}
           />
         </div>
       </div>
@@ -46,7 +56,9 @@ export function MealForm({ onSubmit }: MealFormProps) {
             type="number"
             placeholder="Enter servings in numbers"
             value={servings}
-            onChange={(e) => setServings(Number(e.target.value))}
+            onChange={handleServings}
+            min={1}
+            max={1000}
             className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
             required
           />

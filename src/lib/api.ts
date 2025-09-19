@@ -83,7 +83,7 @@ interface CaloriesResponse {
   servings: number;
   calories_per_serving: number;
   dailyIntake: string;
-  dish:string;
+  dish_name:string;
 }
 
 export async function getCalories(

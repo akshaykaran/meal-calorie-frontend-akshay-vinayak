@@ -12,15 +12,13 @@ import { LogOut } from "lucide-react";
 import { useMealStore } from "@/stores/mealStore";
 
 export default function CaloriesPage() {
-  const { dish, result } = useMealStore();
+  const { dish_name, result } = useMealStore();
   console.log("result", result);
 
   if (!result) {
-    return (
-      <p className="text-center mt-20">
-        No results. Please search from dashboard.
-      </p>
-    );
+    return toast.error("Login failed ❌", {
+      description: "No dish found Please search Again!",
+    });
   }
   const logout = useAuthStore((state) => state.logout);
   const router = useRouter();
@@ -120,7 +118,8 @@ export default function CaloriesPage() {
                   />
                   &nbsp;&nbsp;
                   <span>
-                    Dish Name:&nbsp; <span className="ml-2">{dish}</span>
+                    Dish Name:&nbsp;{" "}
+                    <span className="ml-2 truncate">{result.dish_name}</span>
                   </span>
                 </div>
 

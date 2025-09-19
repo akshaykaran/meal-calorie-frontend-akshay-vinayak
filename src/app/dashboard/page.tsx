@@ -99,8 +99,11 @@ export default function DashboardPage() {
           >
             <div>
               <h2 className="text-4xl font-bold">Nutrition Counter</h2>
-              <p className="text-sm text-foreground mb-10 mt-2">
+              <p className="text-sm text-foreground mt-2">
                 Your nutrition on your finger tips.
+              </p>
+              <p className="mb-10 mt-2">
+                Enter the details of your dish to find the nutritional results.
               </p>
             </div>
             <div className="w-full gap-15 flex flex-col md:flex-row items-center justify-center">
