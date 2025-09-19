@@ -40,24 +40,38 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      <div className="absolute top-5 left-10 rounded-2xl flex flex-center gap-4 bg-card p-4 px-8">
-        {/* <div className="rounded-2xl bg-card p-2 text-center drop-shadow-[0_0_2px_grey]"> */}
+      <div className="absolute top-5 left-10 rounded-2xl flex items-center gap-4 bg-card p-4 px-6 sm:p-4">
         <Image
           src="/assets/images/apple.png"
           alt="NutriCount logo"
           width={50}
           height={50}
+          className="hidden sm:block"
         />
-        <div>
-          <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold ">
-            <span className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
-              NutriCount
-            </span>
-          </h1>
-
-          <span className="text-sm text-foreground">Food Goals Made Easy.</span>
+        <div className="block sm:hidden">
+          <div className="rounded-2xl  p-2 text-center drop-shadow-[0_0_2px_grey]">
+            <Image
+              src="/assets/images/apple.png"
+              alt="NutriCount logo"
+              width={32}
+              height={32}
+            />
+          </div>
         </div>
-        {/* </div> */}
+
+        <div className="hidden sm:block">
+          <div>
+            <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold ">
+              <span className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
+                NutriCount
+              </span>
+            </h1>
+
+            <span className="text-sm text-foreground">
+              Food Goals Made Easy.
+            </span>
+          </div>
+        </div>
       </div>
       <div
         className="absolute top-35 left-20 cursor-pointer"
