@@ -29,7 +29,7 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
   }
 
   return (
-    <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl">
+    <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl mt-22">
       <div
         className="rounded-2xl bg-card p-8 sm:p-8 text-center
         w-full h-auto                      /* mobile: full width, auto height */

@@ -42,6 +42,7 @@ export default function RegisterPage() {
         </div>
         {/* </div> */}
       </div>
+      <div className="absolute top-35 left-20">⟵ Back</div>
 
       <AuthForm mode="register" onSubmit={handleRegister} />
     </main>

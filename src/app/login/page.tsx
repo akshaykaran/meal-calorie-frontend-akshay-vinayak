@@ -35,6 +35,7 @@ export default function LoginPage() {
           <span className="text-sm text-foreground">Food Goals Made Easy.</span>
         </div>
       </div>
+      <div className="absolute top-35 left-20">⟵ Back</div>
 
       <AuthForm mode="login" onSubmit={handleLogin} />
     </main>

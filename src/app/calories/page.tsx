@@ -2,13 +2,18 @@
 
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { MealForm } from "@/components/MealForm";
+import { ResultCard } from "@/components/ResultCard";
+import { Flame, PieChart, Scale, Database } from "lucide-react";
 
-export default function DashboardPage() {
-  function handleMealSubmit(data: { dish: string; servings: number }) {
-    console.log("Meal input:", data);
-    // TODO: Connect to /lib/api.ts for nutrition values
-  }
+export default function CaloriesPage() {
+  // Example static values (replace with API/Zustand later)
+  const dishName = "GENERAL TSOS CHICKEN";
+  const results = {
+    calories: 248,
+    servings: 2,
+    servingSize: 388,
+    dailyIntake: "12.5%",
+  };
 
   return (
     <main className="flex min-h-screen items-center justify-center [background:var(--background)] relative">
@@ -48,27 +53,69 @@ export default function DashboardPage() {
         <div
           className="rounded-2xl bg-card p-10 sm:p-10 text-center
             w-full h-auto                      /* mobile: full width, auto height */
-            sm:w-[600px] sm:h-[700px]          /* small screens (≥640px) */
-            md:w-[800px] md:h-[470px]          /* medium screens (≥768px) */
-            lg:w-[800px] lg:h-[500px]          /* large screens (≥1024px) */
+            sm:w-[600px] sm:h-[770px]          /* small screens (≥640px) */
+            md:w-[800px] md:h-[550px]          /* medium screens (≥768px) */
+            lg:w-[800px] lg:h-[550px]          /* large screens (≥1024px) */
             xl:w-5xl xl:h-[500px]              /* extra large screens (≥1280px) */"
         >
           <div>
-            <h2 className="text-4xl font-bold">Nutrition Counter</h2>
+            <h2 className="text-4xl font-bold">Nutrition Result</h2>
             <p className="text-sm text-foreground mb-10 mt-2">
               Your nutrition on your finger tips.
             </p>
           </div>
+
           <div className="w-full gap-15 flex flex-col md:flex-row items-center justify-center">
             <Image
-              src="/assets/images/plate 2.png"
+              src="/assets/images/plate 4.png"
               alt="Healthy meal"
               width={280}
               height={280}
               className="rounded-full sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px]"
             />
+
             <div className="w-full md:w-1/2 mt-6 md:mt-0">
-              <MealForm onSubmit={handleMealSubmit} />
+              <div className="flex items-center bg-[#95DF1A] text-black font-bold rounded-md px-4 py-4 mb-6">
+                <Image
+                  src="/assets/images/serving.png"
+                  alt="Healthy meal"
+                  width={30}
+                  height={30}
+                />
+                &nbsp;&nbsp;
+                <span>
+                  Dish Name:&nbsp; <span className="ml-2">{dishName}</span>
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-4">
+                <ResultCard
+                  icon={<Flame size={35} />}
+                  label="Total Calories"
+                  value={results.calories}
+                />
+                <ResultCard
+                  icon={<PieChart size={35} />}
+                  label="Servings No."
+                  value={results.servings}
+                />
+
+                <ResultCard
+                  icon={<Scale size={35} />}
+                  label="Serving Size"
+                  value={results.servingSize}
+                />
+                <ResultCard
+                  icon={<Database size={35} />}
+                  label="Daily Calories"
+                  value={results.dailyIntake}
+                />
+              </div>
+
+              <p className="text-xs text-muted-foreground">
+                Powered by USDA FoodData Central, a reliable source of
+                information.
+              </p>
             </div>
           </div>
         </div>
