@@ -11,11 +11,10 @@ interface MealFormProps {
 
 export function MealForm({ onSubmit }: MealFormProps) {
   const [dish, setDish] = useState("");
-  const [servings, setServings] = useState<number | "">("");
+  const [servings, setServings] = useState(1);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (servings === "" || isNaN(Number(servings))) return;
     onSubmit({ dish, servings: Number(servings) });
   }
 
@@ -47,9 +46,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
             type="number"
             placeholder="Enter servings in numbers"
             value={servings}
-            onChange={(e) =>
-              setServings(e.target.value ? Number(e.target.value) : "")
-            }
+            onChange={(e) => setServings(Number(e.target.value))}
             className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
             required
           />
@@ -60,7 +57,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
         type="submit"
         className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-bold w-full mt-4 py-5"
       >
-        Check Nutrition Value
+        Check Nutrition Value ⟶
       </Button>
     </form>
   );

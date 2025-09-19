@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
 interface NutritionResult {
-  calories: number;
+  total_calories: number;
+  calories_per_serving: number;
   servings: number;
-  servingSize: number;
   dailyIntake: string;
+  dish: string;
 }
 
 interface MealState {

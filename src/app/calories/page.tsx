@@ -9,23 +9,37 @@ import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
+import { useMealStore } from "@/stores/mealStore";
 
 export default function CaloriesPage() {
+  const { dish, result } = useMealStore();
+  console.log("result", result);
+
+  if (!result) {
+    return (
+      <p className="text-center mt-20">
+        No results. Please search from dashboard.
+      </p>
+    );
+  }
   const logout = useAuthStore((state) => state.logout);
   const router = useRouter();
-  // Example static values (replace with API/Zustand later)
-  const dishName = "GENERAL TSOS CHICKEN";
-  const results = {
-    calories: 248,
-    servings: 2,
-    servingSize: 388,
-    dailyIntake: "12.5%",
-  };
 
   function handleLogout() {
     logout();
     toast("Logged out ✅");
     router.push("/login");
+  }
+
+  function calculateDailyCalories(
+    totalCalories: number,
+    dailyRecommended: number = 2000
+  ) {
+    if (!totalCalories) return "N/A";
+
+    const percentage = (totalCalories / dailyRecommended) * 100;
+
+    return `${percentage.toFixed(2)}%`;
   }
 
   return (
@@ -40,7 +54,7 @@ export default function CaloriesPage() {
           className="absolute top-4 right-20 cursor-pointer"
           onClick={handleLogout}
         >
-          <div className="rounded-2xl bg-card p-2 text-center drop-shadow-[0_0_2px_grey]">
+          <div className="rounded-2xl bg-card p-4 text-center drop-shadow-[0_0_2px_grey]">
             <LogOut size={20} className="text-red-500" />
           </div>
         </div>
@@ -65,7 +79,12 @@ export default function CaloriesPage() {
           </div>
         </div>
 
-        <div className="absolute top-35 left-20">⟵ Back</div>
+        <div
+          className="absolute top-35 left-20 cursor-pointer"
+          onClick={() => router.push("/dashboard")}
+        >
+          ⟵ Back
+        </div>
         <div className="rounded-2xl p-[1px] bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] shadow-xl mt-30 lg:mt-15 md:mt-15 sm:mt-30">
           <div
             className="rounded-2xl bg-card p-10 sm:p-10 text-center
@@ -101,7 +120,7 @@ export default function CaloriesPage() {
                   />
                   &nbsp;&nbsp;
                   <span>
-                    Dish Name:&nbsp; <span className="ml-2">{dishName}</span>
+                    Dish Name:&nbsp; <span className="ml-2">{dish}</span>
                   </span>
                 </div>
 
@@ -109,23 +128,23 @@ export default function CaloriesPage() {
                   <ResultCard
                     icon={<Flame size={35} />}
                     label="Total Calories"
-                    value={results.calories}
+                    value={result.total_calories}
                   />
                   <ResultCard
                     icon={<PieChart size={35} />}
                     label="Servings No."
-                    value={results.servings}
+                    value={result.servings}
                   />
 
                   <ResultCard
                     icon={<Scale size={35} />}
                     label="Serving Size"
-                    value={results.servingSize}
+                    value={result.calories_per_serving}
                   />
                   <ResultCard
                     icon={<Database size={35} />}
                     label="Daily Calories"
-                    value={results.dailyIntake}
+                    value={calculateDailyCalories(result.total_calories)}
                   />
                 </div>
 

@@ -69,3 +69,32 @@ export async function loginUser(
     body: JSON.stringify(payload),
   });
 }
+
+
+//GET CALORIES API
+
+interface CaloriesPayload {
+  dish_name: string;
+  servings: number;
+}
+
+interface CaloriesResponse {
+  total_calories: number;
+  servings: number;
+  calories_per_serving: number;
+  dailyIntake: string;
+  dish:string;
+}
+
+export async function getCalories(
+  payload: CaloriesPayload,
+  token: string
+): Promise<CaloriesResponse> {
+  return apiRequest<CaloriesResponse>("/get-calories", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${token}`, 
+    },
+  });
+}

@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MealForm } from "@/components/MealForm";
 import { useAuthStore } from "@/stores/authStore";
+import { useMealStore } from "@/stores/mealStore";
+import { getCalories } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
@@ -11,7 +14,10 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 export default function DashboardPage() {
   const logout = useAuthStore((state) => state.logout);
+  const token = useAuthStore((state) => state.user?.token);
   const router = useRouter();
+
+  const { setMeal, setResult } = useMealStore();
 
   function handleLogout() {
     logout();
@@ -19,9 +25,29 @@ export default function DashboardPage() {
     router.push("/login");
   }
 
-  function handleMealSubmit(data: { dish: string; servings: number }) {
-    console.log("Meal input:", data);
-    // TODO: Connect to /lib/api.ts for nutrition values
+  async function handleCheck(data: { dish: string; servings: number }) {
+    if (!token) {
+      toast.error("You must be logged in ❌");
+      return;
+    }
+
+    try {
+      setMeal(data.dish, data.servings);
+
+      const result = await getCalories(
+        { dish_name: data.dish, servings: data.servings },
+        token
+      );
+
+      setResult(result);
+
+      toast.success("Nutrition fetched ✅");
+      router.push("/calories");
+    } catch (err: any) {
+      toast.error("Failed to fetch nutrition ❌", {
+        description: err.message,
+      });
+    }
   }
 
   return (
@@ -86,7 +112,7 @@ export default function DashboardPage() {
                 className="rounded-full sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px]"
               />
               <div className="w-full md:w-1/2 mt-6 md:mt-0">
-                <MealForm onSubmit={handleMealSubmit} />
+                <MealForm onSubmit={handleCheck} />
               </div>
             </div>
           </div>
