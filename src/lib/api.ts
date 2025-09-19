@@ -22,6 +22,7 @@ export async function apiRequest<T>(
   return res.json();
 }
 
+//REGISTER NEW USER
 interface RegisterPayload {
   firstName: string;
   lastName: string;
@@ -41,6 +42,29 @@ export async function registerUser(
   payload: RegisterPayload
 ): Promise<RegisterResponse> {
   return apiRequest<RegisterResponse>("/auth/register", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+//LOGIN USER
+interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  token: string;
+}
+
+export async function loginUser(
+  payload: LoginPayload
+): Promise<LoginResponse> {
+  return apiRequest<LoginResponse>("/auth/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });

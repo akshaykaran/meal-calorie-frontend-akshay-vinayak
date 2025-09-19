@@ -3,11 +3,30 @@
 import Image from "next/image";
 import { AuthForm } from "@/components/AuthForm";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { loginUser } from "@/lib/api";
+import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginPage() {
-  function handleLogin(data: { email: string; password: string }) {
-    console.log("Login user data:", data);
-    // TODO: call /lib/auth.ts later
+  const login = useAuthStore((state) => state.login);
+  const router = useRouter();
+
+  async function handleLogin(data: { email: string; password: string }) {
+    try {
+      const user = await loginUser(data);
+      login(user);
+
+      toast.success("Login successful 🎉", {
+        description: `Welcome back!`,
+      });
+
+      router.push("/dashboard");
+    } catch (err: any) {
+      toast.error("Login failed ❌", {
+        description: err.message || "Invalid credentials",
+      });
+    }
   }
 
   return (
