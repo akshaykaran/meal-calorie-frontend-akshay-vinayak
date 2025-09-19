@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ResultCard } from "@/components/ResultCard";
@@ -10,10 +11,18 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
 import { useMealStore } from "@/stores/mealStore";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function CaloriesPage() {
-  const { dish_name, result } = useMealStore();
-  console.log("result", result);
+  const { result, history } = useMealStore();
+  const [open, setOpen] = useState(false);
 
   if (!result) {
     return toast.error("Login failed ❌", {
@@ -87,7 +96,7 @@ export default function CaloriesPage() {
           <div
             className="rounded-2xl bg-card p-10 sm:p-10 text-center
             w-full h-auto                      /* mobile: full width, auto height */
-            sm:w-[600px] sm:h-[770px]          /* small screens (≥640px) */
+            sm:w-[600px] sm:h-[800px]          /* small screens (≥640px) */
             md:w-[800px] md:h-[550px]          /* medium screens (≥768px) */
             lg:w-[800px] lg:h-[550px]          /* large screens (≥1024px) */
             xl:w-5xl xl:h-[500px]              /* extra large screens (≥1280px) */"
@@ -145,6 +154,62 @@ export default function CaloriesPage() {
                     label="Daily Calories"
                     value={calculateDailyCalories(result.total_calories)}
                   />
+                </div>
+
+                <div className="mt-6 flex justify-center">
+                  <Dialog open={open} onOpenChange={setOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-semibold w-full mb-4">
+                        View Dish History
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-lg bg-card text-foreground">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl font-bold text-center">
+                          Search History
+                        </DialogTitle>
+                      </DialogHeader>
+
+                      <div className="overflow-x-auto mt-4">
+                        <table className="w-full border-collapse text-sm">
+                          <thead>
+                            <tr className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] text-black">
+                              <th className="px-4 py-2 text-left">Dish</th>
+                              <th className="px-4 py-2 text-left">
+                                Total Calories
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {history.length === 0 ? (
+                              <tr>
+                                <td
+                                  colSpan={2}
+                                  className="text-center py-4 text-muted-foreground"
+                                >
+                                  No history yet
+                                </td>
+                              </tr>
+                            ) : (
+                              history.map((item, idx) => (
+                                <tr
+                                  key={idx}
+                                  className="border-b border-muted hover:bg-muted/30"
+                                >
+                                  <td className="px-4 py-2">
+                                    {item.dish_name}
+                                  </td>
+                                  <td className="px-4 py-2">
+                                    {item.total_calories}
+                                  </td>
+                                </tr>
+                              ))
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
 
                 <p className="text-xs text-muted-foreground">

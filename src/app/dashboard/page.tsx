@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const token = useAuthStore((state) => state.user?.token);
   const router = useRouter();
 
-  const { setMeal, setResult } = useMealStore();
+  const { setMeal, setResult, addToHistory } = useMealStore();
 
   function handleLogout() {
     logout();
@@ -43,6 +43,11 @@ export default function DashboardPage() {
 
       toast.success("Nutrition fetched ✅");
       router.push("/calories");
+
+      addToHistory({
+        dish_name: result.dish_name,
+        total_calories: result.total_calories,
+      });
     } catch (err: any) {
       toast.error("Failed to fetch nutrition ❌", {
         description: err.message,
