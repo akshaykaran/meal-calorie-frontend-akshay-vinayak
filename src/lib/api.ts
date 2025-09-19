@@ -1,0 +1,47 @@
+export async function apiRequest<T>(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+  const res = await fetch(`${baseUrl}${endpoint}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "API-KEY": apiKey || "",
+      ...(options.headers || {}),
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || error.error|| "API Request Failed");
+  }
+
+  return res.json();
+}
+
+interface RegisterPayload {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+interface RegisterResponse {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  token: string;
+}
+
+export async function registerUser(
+  payload: RegisterPayload
+): Promise<RegisterResponse> {
+  return apiRequest<RegisterResponse>("/auth/register", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}

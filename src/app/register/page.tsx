@@ -3,16 +3,33 @@
 import Image from "next/image";
 import { AuthForm } from "@/components/AuthForm";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { registerUser } from "@/lib/api";
+import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
-  function handleRegister(data: {
+  const login = useAuthStore((state) => state.login);
+  const router = useRouter();
+
+  async function handleRegister(data: {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
   }) {
-    console.log("Registering user:", data);
-    // TODO: call /lib/api.ts for real API
+    try {
+      const user = await registerUser(data);
+      login(user);
+      toast.success(`Welcome ${user.firstName}! 🎉`, {
+        description: "Your account has been created successfully.",
+      });
+      router.push("/login");
+    } catch (err: any) {
+      toast.error("Registration failed ❌", {
+        description: err.message || "Something went wrong",
+      });
+    }
   }
 
   return (
