@@ -80,16 +80,18 @@ export default function DashboardPage() {
             width={50}
             height={50}
           />
-          <div>
-            <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold ">
-              <span className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
-                NutriCount
-              </span>
-            </h1>
+          <div className="hidden sm:block">
+            <div>
+              <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold ">
+                <span className="bg-gradient-to-r from-[#95DF1A] to-[#FF9F1C] bg-clip-text text-transparent">
+                  NutriCount
+                </span>
+              </h1>
 
-            <span className="text-sm text-foreground ">
-              Food Goals Made Easy.
-            </span>
+              <span className="text-sm text-foreground ">
+                Food Goals Made Easy.
+              </span>
+            </div>
           </div>
         </div>
 
