@@ -14,11 +14,43 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 🍏 NutriCount – Nutrition Counter Application
+
+NutriCount is a nutrition tracking application built with **Next.js**, **TypeScript**, **Tailwind CSS**, **shadcn/ui**, and **Zustand**.  
+It helps users register, log in, search for dishes, and view their nutritional values powered by the **USDA FoodData API**.
+
+---
+
+## 🚀 Features
+
+- 🔐 User registration & login (JWT authentication with API key)
+- 🌓 Light/Dark theme toggle (using `next-themes`)
+- 📊 Dashboard to search dishes & servings
+- 🔎 Fetch calories and nutritional values via API
+- 🗂️ Search history stored in Zustand (shown in modal)
+- 🐳 Docker support for easy deployment
+- ✅ Tested with React Testing Library + Jest
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 15, React 19, TypeScript
+- **Styling:** Tailwind CSS + shadcn/ui components
+- **State Management:** Zustand
+- **Notifications:** Sonner (toast)
+- **Testing:** Jest + React Testing Library
+- **Deployment:** Docker
+
+---
+
+## 📂 Project Structure
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Learn More
 
