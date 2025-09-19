@@ -99,7 +99,7 @@ export default function CaloriesPage() {
             sm:w-[600px] sm:h-[800px]          /* small screens (≥640px) */
             md:w-[800px] md:h-[550px]          /* medium screens (≥768px) */
             lg:w-[800px] lg:h-[550px]          /* large screens (≥1024px) */
-            xl:w-5xl xl:h-[500px]              /* extra large screens (≥1280px) */"
+            xl:w-5xl xl:h-[550px]              /* extra large screens (≥1280px) */"
           >
             <div>
               <h2 className="text-4xl font-bold">Nutrition Result</h2>
