@@ -16,17 +16,15 @@ const DISHES = [
   "Burger",
   "Salad",
   "Soup",
-  "Chicken Curry",
   "Grilled Chicken",
   "Chicken Biryani",
   "Fried Chicken",
   "Paneer Curry",
   "Vegetable Curry",
-  "Pasta Arrabbiata",
+  "Pasta Masala",
   "Pizza Margherita",
   "Salad",
   "Soup",
-  "Burger",
 ];
 
 interface MealFormProps {
@@ -38,6 +36,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
   const [servings, setServings] = useState(1);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   const debouncedDish = useDebounce(dish, 300);
 
@@ -53,13 +52,13 @@ export function MealForm({ onSubmit }: MealFormProps) {
   );
 
   useMemo(() => {
-    if (debouncedDish) {
+    if (debouncedDish && !selected) {
       const results = fuse.search(debouncedDish);
       setSuggestions(results.map((r) => r.item).slice(0, 5));
     } else {
       setSuggestions([]);
     }
-  }, [debouncedDish, fuse]);
+  }, [debouncedDish, fuse, selected]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -92,7 +91,10 @@ export function MealForm({ onSubmit }: MealFormProps) {
               id="dish"
               placeholder="Enter the name of the dish"
               value={dish}
-              onChange={(e) => setDish(e.target.value)}
+              onChange={(e) => {
+                setDish(e.target.value);
+                setSelected(false);
+              }}
               className="rounded-md bg-white dark:bg-black w-full px-3 py-2 outline-none"
               required
               maxLength={50}
@@ -107,6 +109,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
                 className="px-4 py-2 cursor-pointer hover:bg-muted text-foreground truncate"
                 onClick={() => {
                   setDish(s);
+                  setSelected(true);
                   setSuggestions([]);
                 }}
               >
