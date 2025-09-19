@@ -3,7 +3,6 @@ import DashboardPage from "@/app/dashboard/page";
 import { useAuthStore } from "@/stores/authStore";
 import { getCalories } from "@/lib/api";
 
-// Mock Zustand store + API
 jest.mock("@/stores/authStore", () => ({
   useAuthStore: jest.fn(),
 }));
