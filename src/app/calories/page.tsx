@@ -66,13 +66,25 @@ export default function CaloriesPage() {
           </div>
         </div>
 
-        <div className="absolute top-5 left-10 rounded-2xl flex flex-center gap-4 bg-card p-4 px-8">
+        <div className="absolute top-5 left-10 rounded-2xl flex items-center gap-4 bg-card p-4 px-6 sm:p-4">
           <Image
             src="/assets/images/apple.png"
             alt="NutriCount logo"
             width={50}
             height={50}
+            className="hidden sm:block"
           />
+          <div className="block sm:hidden">
+            <div className="rounded-2xl  p-2 text-center drop-shadow-[0_0_2px_grey]">
+              <Image
+                src="/assets/images/apple.png"
+                alt="NutriCount logo"
+                width={32}
+                height={32}
+              />
+            </div>
+          </div>
+
           <div className="hidden sm:block">
             <div>
               <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold ">

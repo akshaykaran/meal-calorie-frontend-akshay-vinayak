@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import Fuse from "fuse.js";
 import { useDebounce } from "@/lib/hooks";
+import { Loader2 } from "lucide-react";
 
 const DISHES = [
   "Pizza",
@@ -36,6 +37,7 @@ export function MealForm({ onSubmit }: MealFormProps) {
   const [dish, setDish] = useState("");
   const [servings, setServings] = useState(1);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const debouncedDish = useDebounce(dish, 300);
 
@@ -53,15 +55,20 @@ export function MealForm({ onSubmit }: MealFormProps) {
   useMemo(() => {
     if (debouncedDish) {
       const results = fuse.search(debouncedDish);
-      setSuggestions(results.map((r) => r.item).slice(0, 5)); // top 5
+      setSuggestions(results.map((r) => r.item).slice(0, 5));
     } else {
       setSuggestions([]);
     }
   }, [debouncedDish, fuse]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSubmit({ dish, servings: Number(servings) });
+    try {
+      setLoading(true);
+      onSubmit({ dish, servings: Number(servings) });
+    } finally {
+      setLoading(false);
+    }
   }
 
   function handleServings(e: React.ChangeEvent<HTMLInputElement>) {
@@ -133,7 +140,14 @@ export function MealForm({ onSubmit }: MealFormProps) {
         type="submit"
         className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-bold w-full mt-4 py-5"
       >
-        Check Nutrition Value ⟶
+        {loading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Checking...
+          </>
+        ) : (
+          "Check Nutrition Value ⟶"
+        )}
       </Button>
     </form>
   );

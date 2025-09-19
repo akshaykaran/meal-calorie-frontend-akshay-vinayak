@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 interface AuthFormProps {
   mode: "login" | "register";
@@ -23,11 +24,17 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSubmit({ firstName, lastName, email, password });
+    try {
+      setLoading(true);
+      await onSubmit({ firstName, lastName, email, password });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -134,7 +141,16 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
             type="submit"
             className="bg-[#95DF1A] hover:bg-[#7cc815] text-black font-semibold w-full cursor-pointer mt-4"
           >
-            {mode === "register" ? "Create Account" : "Sign In"}
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Please wait...
+              </>
+            ) : mode === "register" ? (
+              "Create Account"
+            ) : (
+              "Sign In"
+            )}
           </Button>
 
           <span className="text-sm">
